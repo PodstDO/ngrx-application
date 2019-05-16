@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { HomePageComponent } from './home-page.component';
-import { HomePageRoutingModule } from './home-page-routing.module';
+import { AuthPageComponent } from './auth-page.component';
+import { AuthPageRoutingModule } from './auth-page-routing.module';
 import { AuthorizationModalComponent } from './authorization-modal/authorization-modal.component';
 import { SignInComponent } from './authorization-modal/sign-in/sign-in.component';
 import { SignUpComponent } from './authorization-modal/sign-up/sign-up.component';
@@ -11,13 +11,13 @@ import { FirebaseSharedModule } from 'src/app/shared/firebase-shared.module';
 
 @NgModule({
     declarations: [
-        HomePageComponent,
+        AuthPageComponent,
         AuthorizationModalComponent,
         SignInComponent,
         SignUpComponent
     ],
     imports: [
-        HomePageRoutingModule,
+        AuthPageRoutingModule,
         SharedModule,
         MaterialSharedModule,
         FirebaseSharedModule
@@ -25,4 +25,4 @@ import { FirebaseSharedModule } from 'src/app/shared/firebase-shared.module';
     providers: [],
     exports: []
 })
-export class HomePageModule {}
+export class AuthPageModule {}
