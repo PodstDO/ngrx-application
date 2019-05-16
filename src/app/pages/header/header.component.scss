@@ -1,0 +1,53 @@
+mat-toolbar {
+    background: linear-gradient(to right, #5d4fac, #8e5387);
+    color: white;
+
+    h1 {
+        margin-left: 8px;
+
+        a {
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    // nav {
+    //     ul {
+    //         display: flex;
+    //         justify-content: space-around;
+
+    //         li {
+    //             padding: 0 10px;
+
+    //             a {
+    //                 transition: 200ms ease-in-out;
+    //             }
+
+    //             .header__nav__item {
+    //                 color: white;
+
+    //                 &:hover {
+    //                     text-shadow: 0 0 10px #000000;
+    //                 }
+    //             }
+
+    //             .header__nav__signUp {
+    //                 padding: 0.4em 1em;
+    //                 border: 0px;
+    //                 border-radius: 20px;
+    //                 background-color: white;
+    //                 color: black;
+            
+    //                 &:hover {
+    //                     box-shadow: 0 0 0 4px #00000050; 
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+}
+

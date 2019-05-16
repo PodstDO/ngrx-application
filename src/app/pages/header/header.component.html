@@ -1,0 +1,7 @@
+<mat-toolbar role="heading" class="mat-elevation-z5">
+    <button *ngIf="router.url !== '/home'" mat-icon-button class="mat-icon-button" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <h1><a [routerLink]="['/home']">NGRX Application</a></h1>
+    <span class="spacer"></span>
+</mat-toolbar>
