@@ -1,0 +1,23 @@
+<form [formGroup]="signUpForm" (submit)="signUp($event)">
+    <p>
+        <mat-form-field>
+            <input matInput type="text" placeholder="E-mail" formControlName="email">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword">
+        </mat-form-field>
+    </p>
+
+    <div>
+        <button [disabled]="signUpForm.status === 'INVALID'" type="submit" mat-button mat-raised-button color="primary">Sign Up</button>
+    </div>
+</form>
