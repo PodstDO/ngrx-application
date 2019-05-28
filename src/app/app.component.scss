@@ -15,3 +15,11 @@
 .sidenav-container {
     flex: 1;
 }
+
+.mat-sidenav {
+    min-width: 220px;
+}
+
+.sidenav-link--active {
+    color: #5d4fac;
+}

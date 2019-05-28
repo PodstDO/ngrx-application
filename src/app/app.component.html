@@ -1,10 +1,31 @@
 <div class="app-container">
-    <app-header [ngClass]="'header'" (sidebarToggle)="snav.toggle()"></app-header>
+    <app-header [ngClass]="'header'" (sidebarClose)="snav.close()" (sidebarToggle)="snav.toggle()"></app-header>
 
     <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #snav>
+        <mat-sidenav #snav [mode]="'side'">
             <mat-nav-list>
-                
+                <mat-list>
+                    <mat-list-item routerLink="/home" routerLinkActive="sidenav-link--active">
+                        <mat-icon mat-list-icon>home</mat-icon>
+                        <h4 mat-line>Home</h4>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/movies" routerLinkActive="sidenav-link--active">
+                        <mat-icon mat-list-icon>movie</mat-icon>
+                        <h4 mat-line>Movies</h4>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/converter" routerLinkActive="sidenav-link--active">
+                        <mat-icon mat-list-icon>monetization_on</mat-icon>
+                        <h4 mat-line>Converter</h4>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/album" routerLinkActive="sidenav-link--active">
+                        <mat-icon mat-list-icon>photo_library</mat-icon>
+                        <h4 mat-line>Album</h4>
+                    </mat-list-item>
+                    <mat-list-item routerLink="/admin" routerLinkActive="sidenav-link--active">
+                        <mat-icon mat-list-icon>verified_user</mat-icon>
+                        <h4 mat-line>Admin Panel</h4>
+                    </mat-list-item>
+                </mat-list>
             </mat-nav-list>
         </mat-sidenav>
 
