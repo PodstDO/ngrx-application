@@ -6,4 +6,3 @@ import { Component } from '@angular/core';
     styleUrls: ['./authorization-modal.component.scss']
 })
 export class AuthorizationModalComponent {}
-

@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.services';
 import { FormControl, FormGroup } from '@angular/forms';
 import { emailValidators } from 'src/app/core/validators/email.validators';
 import { passwordValidators } from 'src/app/core/validators/password.validators';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-sign-in',
@@ -10,7 +11,10 @@ import { passwordValidators } from 'src/app/core/validators/password.validators'
     styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-    constructor(private firebaseService: FirebaseService) {}
+    constructor(
+        private firebaseService: FirebaseService,
+        private router: Router
+    ) { }
     public signInForm: FormGroup;
 
     ngOnInit() {
@@ -29,7 +33,7 @@ export class SignInComponent implements OnInit {
 
         this.firebaseService.signIn(this.signInForm.value)
             .then(() => {
-                console.log('Sign In Success');
+                this.router.navigate(['/home']);
             })
             .catch(error => {
                 console.warn(error.message);
