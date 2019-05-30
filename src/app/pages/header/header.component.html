@@ -1,8 +1,8 @@
 <mat-toolbar role="heading" class="mat-elevation-z5">
-    <button *ngIf="router.url !== '/auth'" mat-icon-button class="mat-icon-button" (click)="toggleSidebar()">
+    <button *ngIf="currentUser$ | async" mat-icon-button class="mat-icon-button" (click)="toggleSidebar()">
         <mat-icon>menu</mat-icon>
     </button>
     <h1><a routerLink="/home">NGRX Application</a></h1>
     <span class="spacer"></span>
-    <app-header-user-component (sidebarClose)="onSidebarClose()" *ngIf="isCurrentUser()"></app-header-user-component>
+    <app-header-user-component (sidebarClose)="onSidebarClose()" *ngIf="currentUser$ | async"></app-header-user-component>
 </mat-toolbar>

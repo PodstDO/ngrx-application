@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FirebaseService } from 'src/app/core/services/firebase.services';
-import { Router } from '@angular/router';
+import { IAppState } from 'src/app/store/state/app.state';
+import { Store } from '@ngrx/store';
+import { SignOut } from 'src/app/store/actions/auth.actions';
 
 @Component({
     selector: 'app-header-user-component',
@@ -8,17 +9,11 @@ import { Router } from '@angular/router';
     styleUrls: ['./header-user.component.scss']
 })
 export class HeaderUserComponent {
-    constructor(
-        private firebaseService: FirebaseService,
-        private router: Router) { }
+    constructor(private store: Store<IAppState>) { }
 
     @Output() sidebarClose = new EventEmitter();
 
     logOut() {
-        this.firebaseService.signOut().then(() => {
-            this.sidebarClose.emit();
-            console.log('TRY TO EMIT');
-            this.router.navigate(['/auth']);
-        });
+        this.store.dispatch(new SignOut());
     }
 }

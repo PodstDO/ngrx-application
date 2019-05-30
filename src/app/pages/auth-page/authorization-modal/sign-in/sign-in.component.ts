@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from 'src/app/core/services/firebase.services';
+import { FirebaseAuthService } from 'src/app/core/services/firebase-auth.services';
 import { FormControl, FormGroup } from '@angular/forms';
 import { emailValidators } from 'src/app/core/validators/email.validators';
 import { passwordValidators } from 'src/app/core/validators/password.validators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { IAppState } from 'src/app/store/state/app.state';
+import { SignIn } from 'src/app/store/actions/auth.actions';
 
 @Component({
     selector: 'app-sign-in',
@@ -12,8 +15,9 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
     constructor(
-        private firebaseService: FirebaseService,
-        private router: Router
+        private firebaseAuthService: FirebaseAuthService,
+        private router: Router,
+        private store: Store<IAppState>
     ) { }
     public signInForm: FormGroup;
 
@@ -31,12 +35,6 @@ export class SignInComponent implements OnInit {
     signIn(e: Event) {
         e.preventDefault();
 
-        this.firebaseService.signIn(this.signInForm.value)
-            .then(() => {
-                this.router.navigate(['/home']);
-            })
-            .catch(error => {
-                console.warn(error.message);
-            });
+        this.store.dispatch(new SignIn(this.signInForm.value));
     }
 }
