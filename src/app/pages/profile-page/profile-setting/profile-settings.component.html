@@ -1,3 +1,25 @@
-<section>
-    <h1>PROFILE SETTINGS</h1>
+<section class="profile__settings__container">
+    <form>
+        <p>
+            <mat-form-field>
+                <input matInput type="text" placeholder="Name">
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field>
+               <input matInput type="text" placeholder="Surname">
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field>
+                <input matInput type="text" placeholder="E-mail" disabled>
+            </mat-form-field>
+        </p>
+    
+        <div>
+            <button type="submit" mat-button mat-raised-button color="primary">Save</button>
+        </div>
+    </form>
 </section>

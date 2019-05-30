@@ -1,3 +1,12 @@
-section {
-    padding: 50px;
+.profile__settings__container {
+    background-color: white;
+    margin: auto;
+    padding: 0 20px 20px 20px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00000050;
+}
+
+.mat-form-field {
+    width: 100%;
 }
