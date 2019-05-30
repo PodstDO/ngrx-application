@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CanLoadApplicationPage, CanLoadAuthPage } from './core/guards/isAuthorized.guards';
+// import { CanLoadApplicationPage, CanLoadAuthPage } from './core/guards/isAuthorized.guards';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -54,8 +54,8 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   providers: [
-    CanLoadApplicationPage,
-    CanLoadAuthPage
+    // CanLoadApplicationPage,
+    // CanLoadAuthPage
   ],
   exports: [RouterModule]
 })
