@@ -1,10 +1,10 @@
-import { ICurrentUserState, initialCurrentUserState } from '../state/currentUser.state';
+import { IAuthState, initialAuthState } from '../state/auth.state';
 import { AuthActions, EAuthActions } from '../actions/auth.actions';
 
 export const authReducers = (
-    state = initialCurrentUserState,
+    state = initialAuthState,
     action: AuthActions
-): ICurrentUserState => {
+): IAuthState => {
     switch (action.type) {
         case EAuthActions.GetUser: {
             return state;
@@ -25,38 +25,48 @@ export const authReducers = (
         }
 
         case EAuthActions.SignIn: {
-            return state;
+            return {
+                ...state,
+                loader: true
+            };
         }
 
         case EAuthActions.SignInSuccess: {
             return {
                 ...state,
-                currentUser: action.payload.user
+                currentUser: action.payload.user,
+                loader: false
             };
         }
 
         case EAuthActions.SignInFailed: {
             return {
                 ...state,
-                currentUser: null
+                currentUser: null,
+                loader: false
             };
         }
 
         case EAuthActions.SignUp: {
-            return state;
+            return {
+                ...state,
+                loader: true
+            };
         }
 
         case EAuthActions.SignUpSuccess: {
             return {
                 ...state,
-                currentUser: action.payload.user
+                currentUser: action.payload.user,
+                loader: false
             };
         }
 
         case EAuthActions.SignUpFailed: {
             return {
                 ...state,
-                currentUser: null
+                currentUser: null,
+                loader: false
             };
         }
 

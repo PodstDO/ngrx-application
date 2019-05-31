@@ -8,7 +8,10 @@ import { EAuthActions,
         SignIn,
         SignInSuccess,
         SignInFailed,
-        SignOut } from '../actions/auth.actions';
+        SignOut, 
+        SignUp,
+        SignUpSuccess,
+        SignUpFailed} from '../actions/auth.actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { FirebaseAuthService } from 'src/app/core/services/firebase-auth.services';
 import { of } from 'rxjs';
@@ -51,6 +54,22 @@ export class AuthEffects {
         catchError(error => {
             this.router.navigate(['/auth']);
             return of(new SignInFailed(error));
+        })
+    );
+
+    @Effect()
+    signUp$ = this.actions$.pipe(
+        ofType(EAuthActions.SignUp),
+        switchMap((action: SignUp) => {
+            return this.firebaseAuthService.signUp(action.payload);
+        }),
+        map(credentials => {
+            this.router.navigate(['/home']);
+            return new SignUpSuccess(credentials);
+        }),
+        catchError(error => {
+            this.router.navigate(['/auth']);
+            return of(new SignUpFailed(error));
         })
     );
 
