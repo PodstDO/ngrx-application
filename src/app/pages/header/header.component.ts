@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAppState } from 'src/app/store/state/app.state';
 import { Store, select } from '@ngrx/store';
-import { selectCurrentUser } from 'src/app/store/selectors/currentUser.selectors';
+import { selectCurrentUser } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
     selector: 'app-header',

@@ -15,5 +15,6 @@ export class HeaderUserComponent {
 
     logOut() {
         this.store.dispatch(new SignOut());
+        this.sidebarClose.emit();
     }
 }
