@@ -1,7 +1,36 @@
-<button mat-icon-button [matMenuTriggerFor]="menu">
+<button (click)="openNotificationsBar()" mat-icon-button [matMenuTriggerFor]="userNotifications">
+    <mat-icon [matBadge]="notificationsQuantity" matBadgeColor="warn">notifications</mat-icon>
+</button>
+<button mat-icon-button [matMenuTriggerFor]="userProfile">
     <mat-icon>person</mat-icon>
 </button>
-<mat-menu #menu="matMenu">
+
+<mat-menu #userNotifications="matMenu">
+    <mat-list>
+        <mat-list-item>
+            <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+            <h3 matLine> Hello</h3>
+            <p matLine>
+                <span>1 min ago </span>
+            </p>
+        </mat-list-item>
+        <mat-list-item>
+            <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+            <h3 matLine> Hello</h3>
+            <p matLine>
+                <span>1 min ago </span>
+            </p>
+        </mat-list-item>
+        <mat-list-item>
+            <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+            <h3 matLine> Hello</h3>
+            <p matLine>
+                <span>1 min ago </span>
+            </p>
+        </mat-list-item>
+    </mat-list>
+</mat-menu>
+<mat-menu #userProfile="matMenu">
     <button routerLink="/profile" mat-menu-item>
         <mat-icon>contacts</mat-icon>
         <span>Profile</span>
