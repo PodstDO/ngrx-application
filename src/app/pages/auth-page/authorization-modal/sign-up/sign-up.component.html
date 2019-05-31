@@ -18,6 +18,6 @@
     </p>
 
     <div>
-        <button [disabled]="signUpForm.status === 'INVALID'" type="submit" mat-button mat-raised-button color="primary">Sign Up</button>
+        <mat-spinner-button type="submit" [options]="signUpButtonOptions"></mat-spinner-button>
     </div>
 </form>

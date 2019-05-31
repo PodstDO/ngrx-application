@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseAuthService } from 'src/app/core/services/firebase-auth.services';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { passwordMatchValidator, passwordValidators } from 'src/app/core/validators/password.validators';
 import { emailValidators } from 'src/app/core/validators/email.validators';
-import { Router } from '@angular/router';
-import { FirebaseFirestoreService } from 'src/app/core/services/firebase-firestore.service';
+import { MatProgressButtonOptions } from 'mat-progress-buttons';
+import { Store, select } from '@ngrx/store';
+import { IAppState } from 'src/app/store/state/app.state';
+import { SignUp } from 'src/app/store/actions/auth.actions';
+import { selectAuthLoader } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,15 +15,34 @@ import { FirebaseFirestoreService } from 'src/app/core/services/firebase-firesto
 })
 export class SignUpComponent implements OnInit {
   constructor(
-    private firebaseAuthService: FirebaseAuthService,
-    private firebaseFirestoreService: FirebaseFirestoreService,
     private fb: FormBuilder,
-    private router: Router
+    private store: Store<IAppState>
   ) { }
+
   public signUpForm: FormGroup;
+  public signUpButtonOptions: MatProgressButtonOptions = {
+    active: false,
+    text: 'Sign Up',
+    spinnerSize: 20,
+    raised: true,
+    stroked: false,
+    flat: false,
+    fab: false,
+    buttonColor: 'primary',
+    spinnerColor: 'primary',
+    fullWidth: false,
+    disabled: true,
+    mode: 'indeterminate',
+};
 
   ngOnInit() {
     this.signUpForm = this.initSignUpForm();
+    this.signUpForm.statusChanges.subscribe(validStatus => {
+      this.signUpButtonOptions.disabled = validStatus === 'INVALID' ? true : false;
+    });
+    this.store.pipe(select(selectAuthLoader)).subscribe(loader => {
+      this.signUpButtonOptions.active = loader;
+  });
   }
 
   initSignUpForm(): FormGroup {
@@ -39,14 +60,6 @@ export class SignUpComponent implements OnInit {
 
   signUp(e): void {
     e.preventDefault();
-
-    this.firebaseAuthService.signUp(this.signUpForm.value)
-      .then(({ user }) => {
-        this.firebaseFirestoreService.registerUserInFirestore(user);
-        this.router.navigate(['/profile/settings']);
-      })
-      .catch(error => {
-        console.warn(error.message);
-      });
+    this.store.dispatch(new SignUp(this.signUpForm.value));
   }
 }

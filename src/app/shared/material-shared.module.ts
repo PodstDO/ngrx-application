@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressButtonsModule } from 'mat-progress-buttons';
 
 @NgModule({
     declarations: [],
@@ -22,7 +23,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatButtonModule,
         MatTabsModule,
         MatCardModule,
-        MatMenuModule
+        MatMenuModule,
+        MatProgressButtonsModule
     ],
     providers: [],
     exports: [
@@ -35,7 +37,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatButtonModule,
         MatTabsModule,
         MatCardModule,
-        MatMenuModule
+        MatMenuModule,
+        MatProgressButtonsModule
     ]
 })
 export class MaterialSharedModule {}
