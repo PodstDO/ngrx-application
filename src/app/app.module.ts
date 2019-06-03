@@ -31,7 +31,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([AuthEffects]),
-    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
     AppRoutingModule,
     AuthPageModule,

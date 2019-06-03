@@ -6,18 +6,30 @@ export const authReducers = (
     action: AuthActions
 ): IAuthState => {
     switch (action.type) {
-        case EAuthActions.GetUser: {
+
+        case EAuthActions.GetAuthUID: {
             return state;
         }
 
-        case EAuthActions.GetUserAuthenticated: {
+        case EAuthActions.GetAuthUIDFailed: {
+            return state;
+        }
+
+        case EAuthActions.GetUserFromDB: {
+            return {
+                ...state,
+                loader: false
+            };
+        }
+
+        case EAuthActions.GetUserFromDBSuccess: {
             return {
                 ...state,
                 currentUser: action.payload
             };
         }
 
-        case EAuthActions.GetUserNotAuthenticated: {
+        case EAuthActions.GetUserFromDBFailed: {
             return {
                 ...state,
                 currentUser: null
@@ -28,14 +40,6 @@ export const authReducers = (
             return {
                 ...state,
                 loader: true
-            };
-        }
-
-        case EAuthActions.SignInSuccess: {
-            return {
-                ...state,
-                currentUser: action.payload.user,
-                loader: false
             };
         }
 
@@ -51,14 +55,6 @@ export const authReducers = (
             return {
                 ...state,
                 loader: true
-            };
-        }
-
-        case EAuthActions.SignUpSuccess: {
-            return {
-                ...state,
-                currentUser: action.payload.user,
-                loader: false
             };
         }
 

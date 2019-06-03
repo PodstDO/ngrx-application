@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
 import { IAppState } from './store/state/app.state';
-import { GetUser } from './store/actions/auth.actions';
+import { GetAuthUID } from './store/actions/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +12,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(new GetUser());
+    this.store.dispatch(new GetAuthUID());
   }
 }

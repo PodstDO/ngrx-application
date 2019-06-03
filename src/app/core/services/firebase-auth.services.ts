@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { User } from 'firebase';
 import { IAuthResponse } from 'src/app/shared/models/auth-response.interface';
 
@@ -12,8 +12,8 @@ export class FirebaseAuthService {
         return this.fireAuth.auth.signInWithEmailAndPassword(email, password);
     }
 
-    signUp({ email, password }): Promise<IAuthResponse> {
-        return this.fireAuth.auth.createUserWithEmailAndPassword(email, password);
+    signUp({ email, password }): Observable<IAuthResponse> {
+        return from(this.fireAuth.auth.createUserWithEmailAndPassword(email, password));
     }
 
     signOut(): Promise<void> {

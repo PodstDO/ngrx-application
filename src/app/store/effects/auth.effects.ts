@@ -2,42 +2,60 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
 import { EAuthActions,
-        GetUser,
-        GetUserNotAuthenticated,
-        GetUserAuthenticated,
+        GetAuthUID,
+        GetAuthUIDFailed,
         SignIn,
-        SignInSuccess,
         SignInFailed,
-        SignOut, 
+        SignOut,
         SignUp,
-        SignUpSuccess,
-        SignUpFailed} from '../actions/auth.actions';
+        SignUpFailed,
+        GetUserFromDB,
+        GetUserFromDBFailed,
+        GetUserFromDBSuccess} from '../actions/auth.actions';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { FirebaseAuthService } from 'src/app/core/services/firebase-auth.services';
 import { of } from 'rxjs';
+import { FirebaseFirestoreService } from 'src/app/core/services/firebase-firestore.service';
 
 @Injectable()
 export class AuthEffects {
     constructor(
         private actions$: Actions,
         private router: Router,
-        private firebaseAuthService: FirebaseAuthService
+        private firebaseAuthService: FirebaseAuthService,
+        private firestoreService: FirebaseFirestoreService
     ) {}
 
     @Effect()
-    getUser$ = this.actions$.pipe(
-        ofType(EAuthActions.GetUser),
-        switchMap((action: GetUser) => {
+    GetAuthUID$ = this.actions$.pipe(
+        ofType(EAuthActions.GetAuthUID),
+        switchMap(() => {
             return this.firebaseAuthService.getCurrentUser();
         }),
         map(authData => {
             if (!authData) {
                 this.router.navigate(['/auth']);
-                return new GetUserNotAuthenticated();
+                return new GetAuthUIDFailed();
+            }
+
+            return new GetUserFromDB(authData.uid);
+        })
+    );
+
+    @Effect()
+    getUserFromDB$ = this.actions$.pipe(
+        ofType(EAuthActions.GetUserFromDB),
+        switchMap((action: GetUserFromDB) => {
+            return this.firestoreService.getUserData(action.payload);
+        }),
+        map(userData => {
+            if (!userData) {
+                this.router.navigate(['/auth']);
+                return new GetUserFromDBFailed();
             }
 
             this.router.navigate(['/home']);
-            return new GetUserAuthenticated(authData);
+            return new GetUserFromDBSuccess(userData);
         })
     );
 
@@ -49,7 +67,7 @@ export class AuthEffects {
         }),
         map(credentials => {
             this.router.navigate(['/home']);
-            return new SignInSuccess(credentials);
+            return new GetUserFromDB(credentials.user.uid);
         }),
         catchError(error => {
             this.router.navigate(['/auth']);
@@ -63,9 +81,14 @@ export class AuthEffects {
         switchMap((action: SignUp) => {
             return this.firebaseAuthService.signUp(action.payload);
         }),
-        map(credentials => {
+        switchMap(userData => {
+            const { uid, email } = userData.user;
+            this.firestoreService.registerUserInFirestore(uid, email);
+            return uid;
+        }),
+        map(uid => {
             this.router.navigate(['/home']);
-            return new SignUpSuccess(credentials);
+            return new GetUserFromDB(uid);
         }),
         catchError(error => {
             this.router.navigate(['/auth']);
@@ -81,7 +104,7 @@ export class AuthEffects {
         }),
         map(() => {
             this.router.navigate(['/auth']);
-            return new GetUserNotAuthenticated();
+            return new GetAuthUIDFailed();
         })
     );
 }
