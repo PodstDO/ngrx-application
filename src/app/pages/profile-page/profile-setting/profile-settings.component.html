@@ -1,25 +1,39 @@
 <section class="profile__settings__container">
-    <form>
+    <form [formGroup]="profileSettingsForm" (submit)="saveSettings($event)">
+        <mat-card-title>Profile Settings</mat-card-title>
+        <mat-card>
+            <img mat-card-image class="profile__settings__avatar"
+            [attr.src]="(currentUser$ | async)?.avatarURL">
+            <input type="file" (change)="onFileChange($event)" />
+            <mat-spinner-button type="button" (click)="uploadPhoto()" [options]="uploadPhotoButtonOptions"></mat-spinner-button>
+        </mat-card>
         <p>
             <mat-form-field>
-                <input matInput type="text" placeholder="Name">
+                <input matInput type="text" placeholder="Name" formControlName="name">
             </mat-form-field>
         </p>
 
         <p>
             <mat-form-field>
-               <input matInput type="text" placeholder="Surname">
+                <input matInput type="text" placeholder="Surname" formControlName="surname">
             </mat-form-field>
         </p>
 
         <p>
             <mat-form-field>
-                <input matInput type="text" placeholder="E-mail" disabled>
+                <input matInput type="text" placeholder="Phone" formControlName="phone">
             </mat-form-field>
         </p>
-    
+
+        <p>
+            <mat-form-field>
+                <input matInput type="email" placeholder="E-mail" formControlName="email">
+            </mat-form-field>
+        </p>
+
         <div>
-            <button type="submit" mat-button mat-raised-button color="primary">Save</button>
+            <mat-spinner-button type="submit" [options]="profileSettingsButtonOptions"></mat-spinner-button>
+            <button type="reset" mat-button color="primary">Cancel</button>
         </div>
     </form>
 </section>

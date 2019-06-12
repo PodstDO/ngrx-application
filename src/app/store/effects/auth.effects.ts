@@ -54,7 +54,7 @@ export class AuthEffects {
                 return new GetUserFromDBFailed();
             }
 
-            this.router.navigate(['/home']);
+            // this.router.navigate(['/home']);
             return new GetUserFromDBSuccess(userData);
         })
     );

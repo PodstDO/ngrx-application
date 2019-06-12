@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
     fullWidth: false,
     disabled: true,
     mode: 'indeterminate',
-};
+  };
 
   ngOnInit() {
     this.signUpForm = this.initSignUpForm();
@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit {
     });
     this.store.pipe(select(selectAuthLoader)).subscribe(loader => {
       this.signUpButtonOptions.active = loader;
-  });
+    });
   }
 
   initSignUpForm(): FormGroup {

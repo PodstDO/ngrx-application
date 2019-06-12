@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FirebaseAuthService } from '../core/services/firebase-auth.services';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FirebaseFirestoreService } from '../core/services/firebase-firestore.service';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
     declarations: [],
@@ -16,6 +17,9 @@ import { FirebaseFirestoreService } from '../core/services/firebase-firestore.se
         FirebaseAuthService,
         FirebaseFirestoreService
     ],
-    exports: []
+    exports: [
+        AngularFirestoreModule,
+        AngularFireStorageModule
+    ]
 })
 export class FirebaseSharedModule { }
